@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styleSheet/navbar.css';
+import '../styleSheets/navbar.css';
 
 const Navbar = () => {
   const auth = localStorage.getItem('token');

@@ -1,13 +1,13 @@
 import { Button, Col, Flex, Row, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import useCustomHook from '../customHooks/useCustomHook';
 import PopUp from '../components/modals/Modal';
 import { useNavigate } from 'react-router-dom';
 import { Empty } from 'antd';
+import useProductApis from '../customHooks/useProductApis';
 
 const ProductsPage = () => {
-  const { fetchProductData, deleteSingleProduct } = useCustomHook()
+  const { fetchProductData, deleteSingleProduct } = useProductApis()
   const navigate = useNavigate();
   const [productId, setproductId] = useState(null);
   const { products } = useSelector((state) => ({
@@ -52,7 +52,7 @@ const ProductsPage = () => {
       key: 'id',
       render: (text, record) => <Flex wrap gap="small">
         <Button type="primary" danger onClick={() => { setproductId(record?.id) }} >Delete</Button>
-        <Button type="primary" onClick={()=>{ navigate(`/product/${record?.id}`)}}>Update</Button>
+        <Button type="primary" onClick={() => { navigate(`/product/${record?.id}`) }}>Update</Button>
       </Flex>,
     },
   ];
@@ -77,10 +77,10 @@ const ProductsPage = () => {
           <h2>Manage Products</h2>
         </Col>
         <Col>
-          <Button type="primary" onClick={()=>{ navigate('/product')}}>Add new product</Button>
+          <Button type="primary" onClick={() => { navigate('/product') }}>Add new product</Button>
         </Col>
       </Row>
-      {products.length > 0 ? <Table dataSource={products} columns={columns} /> : <Empty/>}
+      {products.length > 0 ? <Table dataSource={products} columns={columns} /> : <Empty />}
 
     </>
   );

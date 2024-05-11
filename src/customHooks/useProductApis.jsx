@@ -1,8 +1,9 @@
 import axios from "axios";
 import { productAdded, productDeleted, productUpdated, setLoading, setProductData, setSingleProduct } from "../redux/slices/product.slice";
 import { useDispatch } from "react-redux";
+import { message } from "antd";
 
-const useCustomHook = () => {
+const useProductApis = () => {
     const dispatch = useDispatch();
 
     // get product list
@@ -14,7 +15,7 @@ const useCustomHook = () => {
             dispatch(setLoading(false))
         } catch (error) {
             dispatch(setLoading(false))
-            console.error('Error fetching data:', error);
+            message.error('Error fetching data');
         }
     };
 
@@ -29,7 +30,7 @@ const useCustomHook = () => {
                 fetchProductData()
             })
             .catch(error => {
-                console.error('Error:', error); // Logging any errors
+                message.error('Error Adding product');
             });
     }
 
@@ -44,7 +45,7 @@ const useCustomHook = () => {
                 fetchProductData()
             })
             .catch(error => {
-                console.error('Error:', error); // Logging any errors
+                message.error('Error occured');
             });
     }
 
@@ -52,14 +53,14 @@ const useCustomHook = () => {
         dispatch(productDeleted(prodcuctId))
     }
 
-    // get product with id
+    // get single product with id using axios
     const getproductById = async (id) => {
         axios.get(`https://dummyjson.com/products/${id}`)
             .then(response => {
                 dispatch(setSingleProduct(response?.data))
             })
             .catch(error => {
-                return error;
+                message.error('Error fetching the data');
             });
     }
 
@@ -74,7 +75,7 @@ const useCustomHook = () => {
                 fetchProductData()
             })
             .catch(error => {
-                console.error('Error:', error); // Logging any errors
+                message.error('Error occured while updating the data');
             });
     }
 
@@ -93,4 +94,4 @@ const useCustomHook = () => {
         addSingleProduct,
     };
 }
-export default useCustomHook;
+export default useProductApis;

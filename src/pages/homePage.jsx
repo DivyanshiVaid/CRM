@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ProductCard from '../components/ProductCard';
 import { Row, Spin } from 'antd';
-import useCustomHook from "../customHooks/useCustomHook.jsx"
+import useProductApis from '../customHooks/useProductApis.jsx';
 
 const HomePage = () => {
-    const { fetchProductData } = useCustomHook()
+    const { fetchProductData } = useProductApis()
     const { products, loading } = useSelector((state) => ({
         products: state.products.products,
         loading: state.products.loading
